@@ -9,14 +9,20 @@
 
 <div class="container mt-3" style="width: 450px;">
     <h1>it's time to</h1>
+    <input type="text" class="nameInput" placeholder="Website Name" autofocus>
     <div class="URL-list">
     <div class="URL">
         
-        <input type="url" class="urlInput" placeholder="Enter an URL and press Enter" autofocus>
+        <input type="url" class="urlInput" placeholder="URL" autofocus>
      </div>
     <div class="separation-line"></div>
     </div>
     <button id="addInput">+ Add website</button>
-<script
+<script>
+const urlContainer = document.getElementById("urlContainer");
+const addInputButton = document.getElementById("addInput");
+
+const savedURL  = JSON.parse(localStorage)
+</script>
 </body>
 </html>
