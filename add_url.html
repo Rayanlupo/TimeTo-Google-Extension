@@ -8,7 +8,7 @@
 <body>
 
 <div class="container mt-3" style="width: 450px;">
-    <h1>it's time to</h1>
+    <h1 class="modeTitle"></h1>
     <input type="text" class="nameInput" placeholder="Website Name" autofocus>
     <div id="URL-list">
     <div class="URL">
@@ -21,8 +21,12 @@
 <script>
 const urlContainer = document.getElementById("URL-list");
 const addInputButton = document.getElementById("addInput");
-
+const urlParams = new URLSearchParams(window.location.search)
+const modeName = urlParams.getmodeName("mode");
+const storageKey = `savedURL_${modeName}`;
+document.getElementsByClassName("modeTitle").textContent = `Url for ${modeName}`
 const savedURLs  = JSON.parse(localStoragegetItem("url")) || [];
+
 
 const savedURL = (url) => {
     if (url.trim())
@@ -42,13 +46,20 @@ const addInputField = () => {
 const handlekeyPress = (event)   => {
 if ( event.key === "Enter") {
     savedURL(event.target.value);
-    event.tqrget.value = ""
+    event.target.value = ""
     
 }
 };
 
 document.querySelector(".urlInput").addEventListener("keydown", handleKeyPress);
 addInputButton.addEventListener("click", addInputField);
+savedURLs.foreahc((url) => {
+    const input = document.createElement("input")
+    input.type = "url";
+    input.className = "urlInput",
+    input.value = url;
+    input.addEventListener("keydown", handlekeyPress);
+    urlContainer.appendChild(input)})
 </script>
 </body>
 </html>
