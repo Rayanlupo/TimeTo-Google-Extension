@@ -10,7 +10,7 @@
 <div class="container mt-3" style="width: 450px;">
     <h1>it's time to</h1>
     <input type="text" class="nameInput" placeholder="Website Name" autofocus>
-    <div class="URL-list">
+    <div id="URL-list">
     <div class="URL">
         
         <input type="url" class="urlInput" placeholder="URL" autofocus>
@@ -19,10 +19,36 @@
     </div>
     <button id="addInput">+ Add website</button>
 <script>
-const urlContainer = document.getElementById("urlContainer");
+const urlContainer = document.getElementById("URL-list");
 const addInputButton = document.getElementById("addInput");
 
-const savedURL  = JSON.parse(localStorage)
+const savedURLs  = JSON.parse(localStoragegetItem("url")) || [];
+
+const savedURL = (url) => {
+    if (url.trim())
+    savedURL.push(url)
+    localStorage.setItem("urls", JSON.stringify(savedURLs));
+    console.log(`Saved: ${url}`);
+}
+const addInputField = () => {
+    const newInput = ndocument.createElement("input");
+    newInput.type = "url";
+    newInput.className = "urlInput";
+    newInput.placeHolder = "URL";
+    newInput.addEventListener("keydown", handleKeyPress);
+    urlContainer.appendChild(newInput);
+    newInput.focus(); 
+};
+const handlekeyPress = (event)   => {
+if ( event.key === "Enter") {
+    savedURL(event.target.value);
+    event.tqrget.value = ""
+    
+}
+};
+
+document.querySelector(".urlInput").addEventListener("keydown", handleKeyPress);
+addInputButton.addEventListener("click", addInputField);
 </script>
 </body>
 </html>
