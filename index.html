@@ -23,20 +23,20 @@
     </div>
     <button id="addMode">Add Mode</button>
     <script>
-      document.getElementsByClassName("addMode").addEventListener("click", () => {
+      document.getElementById("addMode").addEventListener("click", () => {
         window.location.href = "add_url.html";}); 
-        const playButtons = document.querySelectorAll(".play-buttons-a");
+        const playButtons = document.querySelectorAll(".play-button-a");
 
         playButtons.forEach((button) => {
             button.addEventListener("click", (event) => {
-                const modeName = event.target.nextElementSibling.textContent.Trim();
+                const modeName = event.target.nextElementSibling.textContent.trim();
                 openLinksForMode(modeName);
             });
         });
-    const OpenLinksForMode = (modeName) => {
+    const openLinksForMode = (modeName) => {
         const storageKey = `savedURL${modeName}`;
         const savedURls = JSON.parse(localStorage.getItem(storageKey)) || [];
-        if (savedURls.lenght > 0){
+        if (savedURls.length > 0){
         savedURLs.forEach((url) => window.open(url, "_blank"));
         }   
         else {

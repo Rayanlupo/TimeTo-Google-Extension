@@ -18,3 +18,9 @@
     font-weight: 300; /* Choose a weight between 100 and 900 */
     font-optical-sizing: auto;
 }
+.play-button{
+    size: 30px;
+}
+.play-button-a{
+    size: 30px;
+}
