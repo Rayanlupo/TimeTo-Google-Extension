@@ -38,7 +38,7 @@ const savedURL = (url) => {
     if (url.trim() && url.match(/^(http|https):\/\/[^ "]+$/)){
     savedURLs.push(url)
     localStorage.setItem(storageKey, JSON.stringify(savedURLs));
-    console.log(`Saved: ${url}`);
+    alert(`Saved: ${url}`);
     }
     else{
         alert("Invalid URL");
@@ -61,12 +61,17 @@ if ( event.key === "Enter") {
 }
 };
 savedURLs.forEach((url) => {
+    const inputContainer = document.createElement("div");
+    inputContainer.className = "URL";
+
+
     const input = document.createElement("input")
     input.type = "url";
     input.className = "urlInput",
     input.value = url;
     input.addEventListener("keydown", handleKeyPress);
-    urlContainer.appendChild(input)});
+    urlContainer.appendChild(input);
+inputContainer.appendChild(input)});
 
     const handleModeNameChange = () => {
         const newModeName = modeTitleInput.value.trim();
@@ -76,7 +81,7 @@ savedURLs.forEach((url) => {
             localStorage.removeItem(storageKey);
             modeName = newModeName;
             storageKey = newStorageKey;
-            console.log(`Mode Name updated to ${newModeName}`)
+            alert(`Mode Name updated to ${newModeName}`)
         }
     };
 modeTitleInput.value= modeName;

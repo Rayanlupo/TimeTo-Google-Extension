@@ -19,8 +19,24 @@
     font-optical-sizing: auto;
 }
 .play-button{
-    size: 30px;
+    width: 15px;
+    height: 15px; 
+    padding-right: 5px;
+    background-color: grey;
 }
 .play-button-a{
-    size: 30px;
+    width: 10px;
+    height: 10px;
+    padding-right: 10px;
+    background-color: grey;
+    border: 7px;
+
+}
+.mode {
+    display: flex;
+    flex-direction: row;
+}
+.mode-name{
+    font-size: 20px ;
+    padding-left: 10px;
 }
