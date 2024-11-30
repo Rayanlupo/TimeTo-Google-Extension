@@ -135,23 +135,3 @@ img.edit_icon {
   margin-left: 10px;
 }
 
-/* Hover effects for icons */
-img.play-button:hover,
-img.edit_icon:hover {
-  transform: scale(1.2);
-  opacity: 0.8;
-}
-/* others */
-.urlItem{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #e0f7fa;
-    color: #00796b;
-    font-weight: 700;
-    padding: 10px 15px;
-    border-radius: 1rem;
-    margin-bottom: 10px;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
