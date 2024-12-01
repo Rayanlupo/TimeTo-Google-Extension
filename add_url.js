@@ -5,6 +5,7 @@ let modeName = urlParams.get("mode") || "default";
 let storageKey = `savedURL_${modeName}`;
 const modeTitleInput = document.querySelector(".modeTitle");
 let savedURLs = JSON.parse(localStorage.getItem(storageKey)) || [];
+
 const handleKeyPress = (event) => {
     if (event.key === "Enter") {
         savedURL(event.target.value);
@@ -12,23 +13,30 @@ const handleKeyPress = (event) => {
     }
 };
 
-
 document.getElementById("back-button").addEventListener("click", function() {
     window.history.back();
 });
+
 document.getElementById("save-button").addEventListener("click", () => {
-    handleModeNameChange(); // Save the mode name
-    localStorage.setItem(storageKey, JSON.stringify(savedURLs)); // Save the URLs
+    handleModeNameChange();
+    localStorage.setItem(storageKey, JSON.stringify(savedURLs)); 
     alert(`Mode "${modeName}" and URLs saved successfully!`);
 });
 
-
+const deleteMode = () => {
+    if (confirm(`Are you sure you want to delete the mode "${modeName}"?`)) {
+        localStorage.removeItem(storageKey);
+        alert(`Mode "${modeName}" deleted successfully!`);
+        window.location.href = "index.html"; 
+    }
+};
 
 const savedURL = (url) => {
     if (url.trim() && url.match(/^(http|https):\/\/[^ "]+$/)) {
         savedURLs.push(url);
         localStorage.setItem(storageKey, JSON.stringify(savedURLs));
         alert(`Saved: ${url}`);
+        loadURLs();
     } else {
         alert("Invalid URL");
     }
@@ -48,19 +56,23 @@ const addInputField = () => {
     newInput.focus();
 };
 
+const loadURLs = () => {
+    urlContainer.innerHTML = '';
+    savedURLs.forEach((url) => {
+        const inputContainer = document.createElement("div");
+        inputContainer.className = "URL";
+        const input = document.createElement("input");
+        input.type = "url";
+        input.className = "urlInput";
+        input.value = url;
+        input.addEventListener("keydown", handleKeyPress);
+        inputContainer.appendChild(input);
+        urlContainer.appendChild(inputContainer);
+    });
+};
 
-
-savedURLs.forEach((url) => {
-    const inputContainer = document.createElement("div");
-    inputContainer.className = "URL";
-    const input = document.createElement("input");
-    input.type = "url";
-    input.className = "urlInput";
-    input.value = url;
-    input.addEventListener("keydown", handleKeyPress);
-    inputContainer.appendChild(input);
-    urlContainer.appendChild(inputContainer);
-});
+// Initialize the URL inputs on page load
+loadURLs();
 
 const handleModeNameChange = () => {
     const newModeName = modeTitleInput.value.trim();
@@ -84,3 +96,11 @@ modeTitleInput.addEventListener("keydown", (event) => {
 });
 
 addInputButton.addEventListener("click", addInputField);
+document.getElementById("delete-button").addEventListener("click", deleteMode);
+
+
+const saveMode = () => {
+    handleModeNameChange(); 
+    localStorage.setItem(storageKey, JSON.stringify(savedURLs)); 
+    alert(`Mode "${modeName}" and URLs saved successfully!`);
+};
