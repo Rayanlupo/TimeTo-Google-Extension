@@ -8,8 +8,8 @@ let savedURLs = JSON.parse(localStorage.getItem(storageKey)) || [];
 
 const handleKeyPress = (event) => {
     if (event.key === "Enter") {
-        savedURL(event.target.value);
-        event.target.value = "";
+        event.target.blur();
+        saveURLs();
     }
 };
 
@@ -18,28 +18,22 @@ document.getElementById("back-button").addEventListener("click", function() {
 });
 
 document.getElementById("save-button").addEventListener("click", () => {
-    handleModeNameChange();
-    localStorage.setItem(storageKey, JSON.stringify(savedURLs)); 
-    alert(`Mode "${modeName}" and URLs saved successfully!`);
+    saveMode();
 });
 
 const deleteMode = () => {
     if (confirm(`Are you sure you want to delete the mode "${modeName}"?`)) {
         localStorage.removeItem(storageKey);
         alert(`Mode "${modeName}" deleted successfully!`);
-        window.location.href = "index.html"; 
+        window.location.href = "index.html";
     }
 };
 
-const savedURL = (url) => {
-    if (url.trim() && url.match(/^(http|https):\/\/[^ "]+$/)) {
-        savedURLs.push(url);
-        localStorage.setItem(storageKey, JSON.stringify(savedURLs));
-        alert(`Saved: ${url}`);
-        loadURLs();
-    } else {
-        alert("Invalid URL");
-    }
+const saveURLs = () => {
+    const inputs = document.querySelectorAll(".urlInput");
+    savedURLs = Array.from(inputs).map(input => input.value.trim()).filter(url => url !== "");
+    localStorage.setItem(storageKey, JSON.stringify(savedURLs));
+    console.log("URLs saved:", savedURLs); 
 };
 
 const addInputField = () => {
@@ -71,9 +65,6 @@ const loadURLs = () => {
     });
 };
 
-// Initialize the URL inputs on page load
-loadURLs();
-
 const handleModeNameChange = () => {
     const newModeName = modeTitleInput.value.trim();
     if (newModeName && newModeName !== modeName) {
@@ -98,9 +89,11 @@ modeTitleInput.addEventListener("keydown", (event) => {
 addInputButton.addEventListener("click", addInputField);
 document.getElementById("delete-button").addEventListener("click", deleteMode);
 
-
 const saveMode = () => {
     handleModeNameChange(); 
-    localStorage.setItem(storageKey, JSON.stringify(savedURLs)); 
+    saveURLs(); 
     alert(`Mode "${modeName}" and URLs saved successfully!`);
 };
+
+
+loadURLs();
